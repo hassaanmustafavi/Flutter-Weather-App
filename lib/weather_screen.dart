@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class WeatherScreen extends StatelessWidget {
@@ -23,7 +22,6 @@ class WeatherScreen extends StatelessWidget {
             icon: const Icon(Icons.refresh),
           ),
         ],
-
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -73,7 +71,7 @@ class WeatherScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(height: 16,),
             //weather Forecast
             const Text(
               'Weather Forecast',
@@ -82,50 +80,137 @@ class WeatherScreen extends StatelessWidget {
                 fontSize: 24,
               ),
             ),
+            const SizedBox(height: 16,),
+            const SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  HourlyForecastItem(),
+                  HourlyForecastItem(),
+                  HourlyForecastItem(),
+                  HourlyForecastItem(), 
+                  HourlyForecastItem(), 
+                ],
+              ),
+            ),
+            const SizedBox(height: 16,),
+            //weather Forecast
+            const Text(
+              'Additional Information',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
+              ),
+            ),
+            const SizedBox(height: 16,),
             const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                SizedBox(
-                  width: 100,
-                  child: Card(
-                    elevation: 6,
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            '03:00',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 8.0,
-                          ),
-                          Icon(
-                            Icons.cloud,
-                            size: 32,
-                          ),
-                          SizedBox(height: 5,),
-                          Text(
-                            '32°C'
-                          )
-                        ],
+                Column(
+                  children: [
+                    Icon(
+                      Icons.water_drop_rounded,size: 35,
+                    ),
+                    SizedBox(height: 12,),
+                    Text(
+                      "Humidity",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w100,
                       ),
                     ),
-                  ),
-                )
+                    Text(
+                      '94',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  
+                  children: [
+                    Icon(
+                      Icons.air,size: 35,
+                    ),
+                    SizedBox(height: 12,),
+                    Text(
+                      "Wind Speed",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w100,
+                      ),
+                    ),
+                    Text(
+                      '7.67',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Icon(
+                      Icons.beach_access_rounded,size: 35,
+                    ),
+                    SizedBox(height: 12,),
+                    Text(
+                      "Pressure",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w100,
+                      ),
+                    ),
+                    Text(
+                      '1006',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
               ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+class HourlyForecastItem extends StatelessWidget {
+  const HourlyForecastItem({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 6,
+      child: Container(
+        width: 100,
+        padding:  const EdgeInsets.all(8.0),
+        decoration:const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+        ),
+        child: const Column(
+          children: [
+            Text(
+              '03:00',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            const Placeholder(
-              fallbackHeight: 150,
+            SizedBox(
+              height: 8.0,
             ),
-            const SizedBox(height: 10,),
-            // additional information
-            const Placeholder(
-              fallbackHeight: 150,
+            Icon(
+              Icons.cloud,
+              size: 32,
             ),
-        
+            SizedBox(height: 5,),
+            Text(
+              '32°C'
+            )
           ],
         ),
       ),
