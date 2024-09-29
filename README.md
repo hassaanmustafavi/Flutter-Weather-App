@@ -5,7 +5,7 @@ This Flutter-based **Weather App** provides users with current weather condition
 ## Features
 
 - **Current Weather**: Shows the current temperature and weather conditions with icons.
-- **Hourly Forecast**: Provides the next 8 hours of weather data in a scrollable list.
+- **Hourly Forecast**: Provides the next 24 hours of weather data in a scrollable list.
 - **Additional Information**: Displays humidity, wind speed, and pressure.
 - **API Integration**: Fetches real-time weather data from OpenWeatherMap.
 - **Error Handling**: Provides clear feedback for failed API requests.
