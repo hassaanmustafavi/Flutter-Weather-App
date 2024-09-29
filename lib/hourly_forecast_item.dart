@@ -38,6 +38,7 @@ class HourlyForecastItem extends StatelessWidget {
             Icon(
               icon,
               size: 32,
+              color: icon == Icons.wb_sunny_rounded?Colors.yellow:Colors.white,
             ),
             const SizedBox(height: 5,),
             Text(

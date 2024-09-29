@@ -9,19 +9,20 @@ import 'package:weather_app/secrets.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
-  
+
   @override
   State<WeatherScreen> createState() => _WeatherScreenState();
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
+  String cityName = 'Lahore';
+  final TextEditingController textEditingController = TextEditingController();
 
   String toCelsius(temp){
     temp = temp-273.15;
     return temp.toStringAsFixed(1)+'°C';
   }
   Future<Map<String,dynamic>> getCurrentWeather() async{
-    String cityName = 'vienna';
     try {
       final res = await http.get(
         Uri.parse(
@@ -37,13 +38,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
     } catch (e) {
       throw e.toString();
     }
-    
-  }
-  
-  @override
-  void initState() {
-    super.initState();
-    getCurrentWeather();
   }
   @override
   Widget build(context) {
@@ -59,7 +53,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
           IconButton(
             onPressed: (){
               setState(() {
-                
+                cityName='Lahore';
               });
             },
             icon: const Icon(Icons.refresh),
@@ -90,12 +84,51 @@ class _WeatherScreenState extends State<WeatherScreen> {
           final currPressure = currWeatherData['main']['pressure'];
           final currWindSpeed = currWeatherData['wind']['speed'];
           final currHumidity = currWeatherData['main']['humidity'];
+          textEditingController.text =cityName;
+          
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                IntrinsicWidth(
+                  child: TextField(
+                    onSubmitted: (value) {
+                      cityName = value;
+                      setState(() {
+                        getCurrentWeather();
+                      });
+                    },
+                    controller: textEditingController,
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
+                    decoration: InputDecoration(
+                      filled: true,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          width: 2.0,
+                          style: BorderStyle.solid,
+                          color: Colors.white70,
+                          ),
+                          borderRadius: BorderRadius.circular(180),
+                      ),
+                      prefixIcon: const Icon(Icons.location_on,size: 22,),
+                      enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        width: 2.0,
+                        style: BorderStyle.solid,
+                        color: Colors.white70,
+                        ),
+                        borderRadius: BorderRadius.circular(180),
+                      ),
+                      constraints: const BoxConstraints(maxHeight: 32),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 12 ,vertical: 8)
+                    ),
+                  ),
+                ),
                 //main card
+                const SizedBox(height: 12,),
                 SizedBox(
                   width: double.infinity,
                   child: Card(
@@ -167,7 +200,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         icon: 
                                 hourlySky == 'Clouds' || hourlySky == 'Rain'?
                                 Icons.cloud
-                                :Icons.sunny,
+                                :Icons.wb_sunny_rounded,
                         temperature: hourlyTemp
                       );
                     }
